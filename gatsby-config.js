@@ -6,7 +6,11 @@ const shouldAnalyseBundle = process.env.ANALYSE_BUNDLE
 
 module.exports = {
   siteMetadata: {
-    siteTitleAlt: `Minimal Blog - Gatsby Theme`,
+    siteTitle: `Elkin Urango`,
+    siteTitleAlt: `Elkin Urango - Remote Software Developer`,
+    siteHeadline: `Blog - Programación y trabajo remoto`,
+    siteLanguage: `es`,
+    author: `@kin3xc`,
   },
   plugins: [
     {
@@ -26,11 +30,15 @@ module.exports = {
         externalLinks: [
           {
             name: `Twitter`,
-            url: `https://twitter.com/lekoarts_de`,
+            url: `https://twitter.com/kin3xc`,
           },
           {
             name: `Instagram`,
-            url: `https://www.instagram.com/lekoarts.de/`,
+            url: `https://www.instagram.com/kin3xc/`,
+          },
+          {
+            name: `Linkedin`,
+            url: `https://www.linkedin.com/in/elkinurango/`,
           },
         ],
       },
@@ -45,9 +53,9 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `minimal-blog - @lekoarts/gatsby-theme-minimal-blog`,
-        short_name: `minimal-blog`,
-        description: `Typography driven, feature-rich blogging theme with minimal aesthetics. Includes tags/categories support and extensive features for code blocks such as live preview, line numbers, and code highlighting.`,
+        name: `Elkin Urango - Remote Software Developer`,
+        short_name: `elkinurango`,
+        description: `Tengo mas de 5 años de experiencia trabajando con diferentes compañias de forma remota, actualmente trabajo como Remote Frontend Developer`,
         start_url: `/`,
         background_color: `#fff`,
         theme_color: `#6B46C1`,
