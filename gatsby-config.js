@@ -9,6 +9,7 @@ module.exports = {
     siteTitle: `Elkin Urango`,
     siteTitleAlt: `Elkin Urango - Remote Software Developer`,
     siteHeadline: `Blog - Programación y trabajo remoto`,
+    siteUrl: `https://elkinurango.co`,
     siteLanguage: `es`,
     author: `@kin3xc`,
   },
