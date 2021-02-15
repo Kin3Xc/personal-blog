@@ -1,0 +1,63 @@
+---
+title: "Mi primera página web"
+date: 2021-02-14
+description: En esta entrada crearemos nuestra primera página web, muy básica pero que nos ayudará a entender la estructura de un sitio web y como usar el HTML y el CSS para crear sitios webs complejos.
+slug: "/mi-primera-pagina-web"
+tags:
+  - desarrollo web
+  - programación
+---
+
+En esta entrada crearemos nuestra primera página web, muy básica pero que nos ayudará a entender la estructura de un sitio web y como usar el HTML y el CSS para crear sitios webs complejos.
+
+
+Cuando entramos a un sitio web siempre vamos a entrar a una página principal y ya luego en ella podemos navegar a las distintas páginas que conforman el sitio (en teoría un sitio web es un conjunto de páginas conectadas entre si por medio de hipervínculos, en principio te puedes quedar con ese concepto pero en el camino vamos a ver que es mucho más que eso), en nuestro caso lo primero es crear nuestro archivo .html que llamaremos index, este sería nuestro home, nuestra página principal.
+
+
+Vamos a necesitar un editor de código para escribir nuestras primeras etiquetas html, yo uso [Visual Studio Code](https://code.visualstudio.com/) , es el más popular, pero sientase libre de probar otros y quedarse con el que se sienta cómodo
+
+Bueno ya con nuestro editor de código instalado lo que hay que hacer es crear una carpeta con el nombre de nuestro sitio (puedes usar el nombre que quieras) y dentro de esta vamos a crear dos archivos, nuestro `index.html` y nuestro arhivo de estilos que llamaremos `styles.css`. La estructura de archivos quedaría así:
+
+>
+carpeta
+  - index.html
+  - styles.css
+>
+
+Bien, ahora abrimos la carpeta con nuestro editor de código y abrimos nuestro archivo `index.html` y escribimos el siguiente código
+
+```html:title=index.html
+<!-- especificamos el tipo de documento -->
+<!DOCTYPE html>
+<!-- le decimos el idioma de nuestro sitio -->
+<html lang="es">
+<!-- el head nos sirve para proporcionar metadatos relacionados a nuestro documento html -->
+<head>
+  <!-- el atributo charset nos ayuda a indicar la codificación de caracteres utilizada  -->
+  <meta charset="UTF-8">
+  <!-- este es el titulo de nuestra página web  -->
+  <title>Mi Primero Página Web</title>
+  <!-- link a nuestra hoja de estilos, con esto ahora desde nuestros styles podemos apuntar a las etiquetas html -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<!-- aquí va el contenido de nuestro documento html, es importante indicar que un documento html solo puede tener un solo body -->
+<body>
+  <!-- etiqueta html para mostrar un título -->
+  <h1>Hola Mundo!</h1>
+  <!-- etiqueta html para mostrar un párrafo -->
+  <p>Esta es mi primera página web</p>
+</body>
+</html>
+```
+
+Esta es la estructura básica de una página web, como puedes ver son etiquetas html, dichas etiquetas tienen atributos. HTML no es un lenguaje de programación, es un lenguaje de marcado basado en etiquetas con las cuales podemos renderear contenido en el navegador, este contenido puede ser, texto, imágenes, videos, audio, etc.
+
+Si ahora abres el arhivo `index.html` en tu navegador deberías poder ver tu primera página web con un título y un párrafo.
+
+Agregué comentarios en el código para decirte que es cada etiqueta, los comentarios son sólo apuntes que uno puede hacer en el código para describir o tratar de explicar lo que se quiere hacer.
+
+No quiero extender más este post, así que dejaremos hasta aquí, en la próxima entrada vamos a ver como agregarle estilos anuestro sitio.
+
+
+
+> Como ejercicio trata de investigar las principales etiquetas html y luego agrega algunas en nuestro index.html, agrega comentarios explicando que hace cada etiqueta. Es una buena forma de practicar, un buen desarrollador conoce las principales etiquetas html y sabe como usarlas.
