@@ -1,0 +1,76 @@
+---
+title: "Introducción a CSS"
+date: 2022-04-14
+description: CSS es un lenguaje de hojas de estilos creado con el propósito de controlar el aspecto visual de los documentos HTML.
+slug: "/introduccion-a-css"
+tags:
+  - programación
+  - CSS
+---
+
+CSS es el aliado perfecto de HTML, recordemos que con html podemos crear y estructurar documentos html, a cada etiqueta html que creamos en nuestra página le podemos agregar estilos gracias al css, logrando así darle un aspecto visual deseado a nuestros sitios.
+
+CSS entonces es un lenguja de estilos, creado con el propósito de agregar mejoras visuales a los documentos html, CSS quiere de decir Cascading Style Sheets (Hojas de Estilo en Cascada), podemos crear nuestras hojas de estilos y aplicarselas a un documento html de forma muy simple.
+
+![Home Office](./was-ist-css-t.jpg)
+
+Los estilos se pueden definir directamente en la etiqueta html (css inline), en una etiqueta style dentro del documento html o en un archivo con extención `.css`, nos vamos a centrar en esta última opción debido a que es la más usada en la industria ya que nos permite mantener desacoplados nuestros estilos del documento html.
+
+En css existen las clases, en éstas básicamente podemos definir una serie de estilos que posteriormente se los podemos aplicar a cuantas etiquetas html queramos, esto es importante porque nos permite reusar estilos entre las diferentes páginas que conforman nuestro sitio web.
+
+Siguiendo con nuestro ejemplo anterior donde tenemos la siguiente estructura:
+
+>
+carpeta
+  - index.html
+  - styles.css
+>
+
+En nuestro archivo `index.html` tenemos agregado un link a un documento de estilo llamado `styles.css`
+
+`<link rel="stylesheet" href="styles.css">`
+
+Vamos a agregar algunos estilos en ese archivo, para ello debemos entender que para agregar estilos a una etiqueta solo tenemos que colocar el nombre de la etiqueta y dentro de un bloque definir los estilos para esa etiqueta, eso quiere decir que en nuestra página todas las etiquetas que definámos ahí tendran el mismo estilo, veamos un ejemplo
+
+Vamos a darle estilos a nuestra etiqueta `h1`, en nuestro archivo `styles.css` agregamos lo siguiente:
+
+```css:title=styles.css
+
+h1 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  color: #333;
+  text-transform: uppercase;
+}
+
+```
+
+De esta forma podemos crear estilos para nuestras etiquetas html, ahora veamos cómo podemos crear una clase `title` y agregarle algunos estilos para aplicarlos en nuestro html.
+
+En nuestro archivo `styles.css` agregamos la siguiente clase:
+
+```css:title=styles.css
+
+.title {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  color: #fcba03;
+  text-transform: uppercase;
+}
+
+```
+
+Como puedes ver son practicamente los mismos estilos, pero en este caso hemos creado una clase, le hemos asignado el nombre `title`, siempre antes del nombre de la clase colocamos un punto `.title`
+
+Ahora veamos como aplicar nuestra clase a una eitqueta html:
+
+```html:title:index.html
+<h1 class="title">Hola soy un título!</h1>
+```
+
+Las clases las asignamos por medio de la propiedad `class` a nuestra etiqueta html.
+De esta forma podemos definir todos los estilos que necesitemos para nuestro sitio web y así darle el aspecto visual que deseamos.
+
+> Existen un monton de propiedades css que podemos definir en nuestro archivo, sería bueno que empieces a investigar y probar con cada una de ellas, así tendrás un claro entendimiento de las capacidades de CSS.
+
+Te veo en una próxima entrada.
