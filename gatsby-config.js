@@ -1,8 +1,8 @@
 require(`dotenv`).config({
   path: `.env`,
-})
+});
 
-const shouldAnalyseBundle = process.env.ANALYSE_BUNDLE
+const shouldAnalyseBundle = process.env.ANALYSE_BUNDLE;
 
 module.exports = {
   siteMetadata: {
@@ -48,7 +48,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-adsense`,
       options: {
-        publisherId: `pub-5546876290559845`
+        publisherId: process.env.GOOGLE_ADSENSE,
       },
     },
     {
@@ -93,4 +93,4 @@ module.exports = {
       },
     },
   ].filter(Boolean),
-}
+};
