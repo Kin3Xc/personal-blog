@@ -1,0 +1,242 @@
+---
+title: "Introducción a JavaScript"
+date: 2025-03-19
+description: JavaScript es un lenguaje de programación que permite crear interactividad en las páginas web, convirtiéndolas en aplicaciones dinámicas.
+slug: "/introduccion-a-javascript"
+tags:
+  - programación
+  - JavaScript
+---
+
+Si hemos seguido nuestro camino de aprendizaje web, ya conocemos HTML para estructurar nuestro contenido y CSS para darle estilo visual a nuestras páginas. Ahora es momento de dar el siguiente paso y aprender JavaScript, el lenguaje que añade interactividad y dinamismo a nuestros sitios web.
+
+JavaScript es un lenguaje de programación interpretado que se ejecuta en el navegador del usuario. Mientras que HTML se encarga de la estructura y CSS del aspecto visual, JavaScript permite crear interacciones, responder a eventos y manipular el contenido de forma dinámica.
+
+![JavaScript](./javascript.jpg)
+
+## ¿Por qué es importante JavaScript?
+
+JavaScript se ha convertido en uno de los lenguajes más populares del mundo por varias razones:
+
+1. Es el único lenguaje de programación que se ejecuta de forma nativa en los navegadores
+2. Permite crear desde simples interacciones hasta aplicaciones web complejas
+3. Ha evolucionado para ser utilizado también en el servidor (Node.js)
+4. Tiene una comunidad enorme y miles de bibliotecas y frameworks que facilitan el desarrollo
+
+## Primeros pasos con JavaScript
+
+Para empezar a usar JavaScript en nuestra página web, podemos incluirlo de tres formas:
+
+1. **JavaScript inline**: Directamente en un atributo HTML (no recomendado para código extenso)
+2. **JavaScript interno**: Dentro de una etiqueta `<script>` en nuestro documento HTML
+3. **JavaScript externo**: En un archivo separado con extensión `.js` (recomendado)
+
+Al igual que con CSS, la mejor práctica es mantener nuestro código JavaScript en archivos separados para mantener una buena organización.
+
+Siguiendo con nuestra estructura de proyecto:
+
+>
+carpeta
+  - index.html
+  - styles.css
+  - script.js
+>
+
+Ahora, en nuestro archivo `index.html` agregaremos un enlace a nuestro archivo JavaScript:
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mi Primera Página Web</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1 id="titulo">Hola Mundo!</h1>
+  <p>Esta es mi primera página web</p>
+  
+  <!-- Agregamos nuestro archivo JavaScript al final del body -->
+  <script src="script.js"></script>
+</body>
+</html>
+```
+
+## Conceptos básicos de JavaScript
+
+Vamos a ver algunos ejemplos básicos de JavaScript para entender cómo funciona. Primero, creemos nuestro archivo `script.js` con algunos ejemplos:
+
+```javascript:title=script.js
+// Esto es un comentario en JavaScript
+
+// Mostramos un mensaje en la consola del navegador
+console.log("¡Hola desde JavaScript!");
+
+// Variables
+let nombre = "Usuario"; // Variable que puede cambiar
+const edad = 25; // Variable constante que no cambia
+
+// Mostrar una alerta al usuario
+alert("¡Bienvenido a mi página web!");
+
+// Seleccionar un elemento HTML y modificarlo
+const titulo = document.getElementById("titulo");
+titulo.innerHTML = "¡Hola " + nombre + "!";
+titulo.style.color = "blue";
+
+// Funciones
+function saludar() {
+  alert("¡Hola de nuevo!");
+}
+
+// Eventos
+titulo.addEventListener("click", function() {
+  saludar();
+});
+```
+
+Si añadimos este código a nuestro archivo `script.js` y abrimos nuestro `index.html` en el navegador, veremos que:
+
+1. Aparecerá una alerta diciendo "¡Bienvenido a mi página web!"
+2. El título "Hola Mundo" cambiará a "¡Hola Usuario!" y se pondrá de color azul
+3. Si hacemos clic en el título, aparecerá otra alerta diciendo "¡Hola de nuevo!"
+
+## Variables y tipos de datos
+
+En JavaScript podemos almacenar diferentes tipos de información en variables:
+
+```javascript
+// Tipos de datos básicos
+let texto = "Esto es un texto"; // String (cadena de texto)
+let numero = 42; // Number (número)
+let esVerdadero = true; // Boolean (booleano, true o false)
+let noExiste = null; // Null (valor nulo)
+let noDefinido; // Undefined (valor no definido)
+
+// Arrays (arreglos)
+let colores = ["rojo", "verde", "azul"];
+
+// Objetos
+let persona = {
+  nombre: "Juan",
+  edad: 30,
+  esEstudiante: true
+};
+```
+
+## Operadores y condicionales
+
+JavaScript nos permite realizar operaciones y tomar decisiones en nuestro código:
+
+```javascript
+// Operadores aritméticos
+let suma = 5 + 3; // 8
+let resta = 10 - 4; // 6
+let multiplicacion = 3 * 4; // 12
+let division = 10 / 2; // 5
+
+// Condicionales
+let edad = 18;
+
+if (edad >= 18) {
+  console.log("Eres mayor de edad");
+} else {
+  console.log("Eres menor de edad");
+}
+```
+
+## Bucles
+
+Los bucles nos permiten repetir código:
+
+```javascript
+// Bucle for
+for (let i = 0; i < 5; i++) {
+  console.log("Iteración número: " + i);
+}
+
+// Bucle while
+let contador = 0;
+while (contador < 3) {
+  console.log("Contador: " + contador);
+  contador++;
+}
+
+// Recorrer un array
+let frutas = ["manzana", "banana", "naranja"];
+for (let i = 0; i < frutas.length; i++) {
+  console.log(frutas[i]);
+}
+
+// Método más moderno para recorrer arrays
+frutas.forEach(function(fruta) {
+  console.log(fruta);
+});
+```
+
+## Interactuando con el DOM
+
+Una de las funciones más importantes de JavaScript es la capacidad de manipular el DOM (Document Object Model), que es la representación en memoria de la estructura HTML de nuestra página:
+
+```javascript
+// Seleccionar elementos
+const titulo = document.getElementById("titulo"); // Por ID
+const parrafos = document.getElementsByTagName("p"); // Por etiqueta
+const elementos = document.getElementsByClassName("clase"); // Por clase
+const elemento = document.querySelector(".clase"); // Selector CSS (primer elemento)
+const todosElementos = document.querySelectorAll(".clase"); // Todos los elementos
+
+// Modificar contenido
+titulo.innerHTML = "Nuevo título"; // Cambiar el HTML interno
+titulo.textContent = "Solo texto"; // Cambiar solo el texto
+
+// Modificar estilos
+titulo.style.color = "red";
+titulo.style.fontSize = "24px";
+
+// Añadir y quitar clases
+titulo.classList.add("destacado");
+titulo.classList.remove("destacado");
+titulo.classList.toggle("destacado"); // Alterna la clase
+
+// Crear y añadir elementos
+const nuevoParrafo = document.createElement("p");
+nuevoParrafo.textContent = "Este es un párrafo nuevo";
+document.body.appendChild(nuevoParrafo);
+```
+
+## Eventos
+
+Los eventos nos permiten ejecutar código cuando algo sucede en la página:
+
+```javascript
+// Añadir un evento a un elemento
+const boton = document.getElementById("miBoton");
+
+boton.addEventListener("click", function() {
+  alert("¡Has hecho clic en el botón!");
+});
+
+// Algunos tipos de eventos comunes:
+// - click: cuando se hace clic en el elemento
+// - mouseover: cuando el ratón pasa por encima
+// - mouseout: cuando el ratón sale del elemento
+// - keydown: cuando se presiona una tecla
+// - submit: cuando se envía un formulario
+// - load: cuando la página ha cargado
+```
+
+## Próximos pasos
+
+Este es solo un vistazo muy básico a JavaScript. Es un lenguaje muy potente y con muchas más características. Algunos temas que podrías explorar a continuación son:
+
+- Funciones flecha
+- Métodos de array avanzados (map, filter, reduce)
+- Promesas y async/await para operaciones asíncronas
+- Módulos JavaScript
+- Frameworks como React, Vue o Angular
+- JavaScript del lado del servidor con Node.js
+
+> No te desanimes si al principio te parece complicado. La programación es un proceso de aprendizaje constante. Prueba, experimenta y aprende de tus errores. ¡Con práctica constante lograrás dominar JavaScript!
+
+Te veo en la próxima entrada donde profundizaremos más en algunos de estos conceptos y veremos cómo crear interacciones más complejas en nuestras páginas web.
