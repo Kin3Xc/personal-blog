@@ -9,7 +9,7 @@ module.exports = {
     siteTitle: `Elkin Urango`,
     siteTitleAlt: `Elkin Urango - Remote Software Developer`,
     siteHeadline: `Blog - Programación y trabajo remoto`,
-    siteDescription: `Tengo mas de 5 años de experiencia trabajando con diferentes compañias de forma remota, actualmente trabajo como Remote Frontend Developer`,
+    siteDescription: `Tengo mas de 10 años de experiencia trabajando con diferentes compañias de forma remota, actualmente trabajo como Tech Lead`,
     siteUrl: `https://elkinurango.co`,
     siteLanguage: `es`,
     author: `@kin3xc`,
@@ -31,16 +31,16 @@ module.exports = {
         ],
         externalLinks: [
           {
-            name: `Twitter`,
-            url: `https://twitter.com/kin3xc`,
+            name: `Linkedin`,
+            url: `https://www.linkedin.com/in/elkinurango/`,
+          },
+          {
+            name: `Github`,
+            url: `https://github.com/Kin3Xc`,
           },
           {
             name: `Instagram`,
             url: `https://www.instagram.com/kin3xc/`,
-          },
-          {
-            name: `Linkedin`,
-            url: `https://www.linkedin.com/in/elkinurango/`,
           },
         ],
       },
@@ -63,7 +63,7 @@ module.exports = {
       options: {
         name: `Elkin Urango - Remote Software Developer`,
         short_name: `elkinurango`,
-        description: `Tengo mas de 5 años de experiencia trabajando con diferentes compañias de forma remota, actualmente trabajo como Remote Frontend Developer`,
+        description: `Tengo mas de 10 años de experiencia trabajando con diferentes compañias de forma remota, actualmente trabajo como Tech Lead`,
         start_url: `/`,
         background_color: `#fff`,
         theme_color: `#6B46C1`,
