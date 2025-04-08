@@ -45,16 +45,6 @@ module.exports = {
         ],
       },
     },
-    `gatsby-plugin-react-helmet`,
-    {
-      resolve: 'gatsby-plugin-load-script',
-      options: {
-        src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5546876290559845', // URL de tu script
-        // Opciones adicionales
-        async: true,
-        crossorigin: 'anonymous',
-      }
-    },
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
