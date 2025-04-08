@@ -52,7 +52,6 @@ module.exports = {
         src: `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.GOOGLE_ADSENSE}`, // URL de tu script
         // Opciones adicionales
         async: true,
-        defer: true,
         crossorigin: 'anonymous',
       }
     },
