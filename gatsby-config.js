@@ -45,11 +45,16 @@ module.exports = {
         ],
       },
     },
+    `gatsby-plugin-react-helmet`,
     {
-      resolve: `gatsby-plugin-google-adsense`,
+      resolve: 'gatsby-plugin-load-script',
       options: {
-        publisherId: process.env.GOOGLE_ADSENSE,
-      },
+        src: `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.GOOGLE_ADSENSE}`, // URL de tu script
+        // Opciones adicionales
+        async: true,
+        defer: true,
+        crossorigin: 'anonymous',
+      }
     },
     {
       resolve: `gatsby-plugin-google-analytics`,
