@@ -1,0 +1,208 @@
+---
+title: "Implementando Order Hooks en VTEX IO"
+date: 2026-01-03
+description: Si estás desarrollando en VTEX IO, probablemente te hayas enfrentado al desafío de integrar las órdenes de tu tienda con sistemas externos. Una solución común para esto son los Order Hooks, pero ¿cómo implementarlos correctamente? En este artículo te mostraremos paso a paso cómo configurar un Order Hook efectivo.
+slug: "/implementando-order-hooks-en-vtex-io"
+tags:
+  - programación
+  - JavaScript
+  - Ecommerce
+  - VTEX
+---
+
+## El problema: Sincronización de órdenes en tiempo real
+
+Imagina este escenario: tienes una tienda VTEX que necesita comunicarse con un ERP, un sistema de gestión de inventario o cualquier aplicación externa cada vez que se genera una orden. El sistema externo necesita información detallada sobre cada compra para procesar envíos, actualizar inventarios o generar facturas.
+
+VTEX ofrece dos mecanismos principales para esto:
+
+- **Order Hooks**: Notificaciones en tiempo real cuando ocurre un evento de orden
+- **Order Feed**: Consulta periódica del historial de órdenes
+
+Nos enfocaremos en los Order Hooks, que son ideales cuando necesitas reaccionar inmediatamente a los cambios en las órdenes.
+
+## Implementando un Order Hook paso a paso
+
+### 1. Crear un servicio para recibir las notificaciones
+Primero, necesitamos un endpoint que recibirá las notificaciones de VTEX. Vamos a implementar un servicio Node.js usando VTEX IO:
+
+```javascript
+import { json } from "co-body";
+import { ServiceContext } from "@vtex/api";
+
+export async function orderHook(ctx: ServiceContext, next: () => Promise<any>) {
+  const {
+    clients: { oms, erp },
+  } = ctx;
+
+  const body = await json(ctx.req);
+  console.log("Hook recibido:", body);
+
+  const orderId = body.OrderId;
+
+  try {
+    // Obtener datos completos de la orden usando el OMS client
+    const orderData = await oms.getOrder(orderId);
+
+    // Enviar los datos de la orden al sistema externo
+    await erp.sendToExternalSystem(orderData);
+
+    ctx.status = 200;
+    ctx.body = { success: true };
+  } catch (error) {
+    console.error("Error procesando orden:", error);
+    ctx.status = 500;
+    ctx.body = { success: false, error: error.message };
+  }
+
+  await next();
+}
+```
+
+### 2. Registrar las rutas y clientes en el servicio
+En tu archivo **node/index.ts**, registra la ruta para el webhook:
+
+```javascript
+import { ServiceContext, ServiceConfig, ParamsContext, RecorderState } from '@vtex/api'
+import { Clients } from './clients'
+import { orderHook } from './handlers/orderHook'
+
+const TIMEOUT_MS = 5000
+
+// Esta configuración viene del archivo service.json
+const ROUTES = {
+  orderHook: {
+    path: '/v1/hooks/order',
+    method: 'POST',
+    handler: orderHook,
+  },
+}
+
+export default new ServiceConfig<Clients, RecorderState, ParamsContext>({
+  clients: {
+    implementation: Clients,
+    options: {
+      default: {
+        retries: 2,
+        timeout: TIMEOUT_MS,
+      },
+    },
+  },
+  routes: ROUTES,
+})
+```
+
+### 3. Implementar el cliente OMS para obtener detalles de la orden y nuestro cliente para enviar los datos al ERP
+
+Crea un cliente para interactuar con la API de Orders de VTEX:
+
+```JavaScript
+import { ExternalClient, InstanceOptions, IOContext } from '@vtex/api'
+
+export default class OMSClient extends ExternalClient {
+  constructor(context: IOContext, options?: InstanceOptions) {
+    super('https://accountName.myvtex.com/api/oms/pvt/orders',  context, {
+      ...options,
+      headers: {
+        ...options?.headers,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'X-VTEX-API-AppKey': 'XXXXXXXXX-XXXX', // Reemplazar con su app key
+        'X-VTEX-API-AppToken': 'XXXXXXXXX-XXXX', // Reemplazar con su app token
+      },
+    })
+  }
+
+  public async getOrder(orderId: string): Promise<any> {
+    return this.http.get(`/${orderId}`, {
+      metric: 'orders-get',
+    })
+  }
+}
+
+// Cambie accountName por su nombre de cuenta VTEX 
+```
+
+Ahora crea un nuevo cliente para conectarnos con nuestro ERP:
+
+```javascript
+import { ExternalClient, InstanceOptions, IOContext } from '@vtex/api'
+
+export default class ERPClient extends ExternalClient {
+  constructor(context: IOContext, options?: InstanceOptions) {
+    super('https://erp.com/orders',  context, {
+      ...options,
+      headers: {
+        ...options?.headers,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+  }
+
+  public async sendToExternalSystem(order: any): Promise<any> {
+    return this.http.post(`/send`,{
+      data: order,
+    }, {
+      metric: 'orders-get',
+    })
+  }
+}
+
+// Cambie https://erp.com/orders por la URL de su ERP
+```
+
+Registramos nuestros clientes en el archivo **clients/index.ts**:
+
+```javascript
+import { IOClients } from '@vtex/api'
+import OMSClient from './OMSClient'
+import ERPClient from './ERPClient'
+
+export class Clients extends IOClients {
+  public get oms() {
+    return this.getOrSet('oms', OMSClient)
+  }
+  
+  public get erp() {
+    return this.getOrSet('erp', ERPClient)
+  }
+}
+```
+
+### 4. Configurar el Order Hook en el admin de VTEX
+
+Una vez que tenemos nuestro servicio implementado, necesitamos registrar el hook en VTEX por medio de un API de VTEX:
+
+```javascript
+https://accountName.myvtex.com/api/orders/hook/config
+```
+
+Para configurar nuestro hook podemos usar postman para realizar una petición de tipo post en la que enviamos el siguiente payload:
+
+```JSON
+{
+    "filter": {
+        "status": [
+            "ready-for-handling"
+        ],
+        "type": "FromWorkflow"
+    },
+    "hook": {
+        "url": "https://accountName.myvtex.com/_v/v1/order/hook",
+        "headers": {
+        }
+    }
+}
+```
+
+En este caso estamos configurando un hook para recibir todas las ordenes que pasen a estado ready-for-handling y adicional le estamos enviando nuestra url del servicio que hemos creado previamente.
+
+>Para la creación del hook debemos enviar un app key y app token de VTEX en los headers, se recomienda crear uno específicamente para este proceso
+
+Los Order Hooks de VTEX son una herramienta poderosa para mantener sistemas externos sincronizados en tiempo real.
+
+Recuerda que no existe una solución única para todos los casos. Evalúa cuidadosamente tus requisitos de latencia, fiabilidad y complejidad para decidir entre Order Hooks, Order Feed o una combinación de ambos.
+
+¿Has implementado integraciones con VTEX? ¿Qué desafíos has encontrado? Comparte tu experiencia en los comentarios.
+
