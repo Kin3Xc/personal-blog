@@ -12,6 +12,7 @@ module.exports = {
     siteDescription: `Tengo mas de 10 años de experiencia trabajando con diferentes compañias de forma remota, actualmente trabajo como Tech Lead`,
     siteUrl: `https://elkinurango.co`,
     siteLanguage: `es`,
+    siteImage: `/site-default.jpg`,
     author: `@kin3xc`,
   },
   plugins: [
@@ -27,6 +28,10 @@ module.exports = {
           {
             title: `About`,
             slug: `/about`,
+          },
+          {
+            title: `Términos y condiciones`,
+            slug: `/terminos-y-condiciones`,
           },
         ],
         externalLinks: [
